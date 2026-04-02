@@ -2,8 +2,8 @@
 -- Includes core tables plus a seeded admin account with full permissions.
 -- NOTE:
 -- 1) Default seeded admin password is: Admin@123
--- 2) This script uses Spring Security's {noop} format for quick bootstrap/dev only.
--- 3) Replace it with a BCrypt/Argon2 hash before going to production.
+-- 2) The seeded password below is stored as a one-way BCrypt hash.
+-- 3) Prefix {bcrypt} is kept for compatibility with Spring Security DelegatingPasswordEncoder.
 
 CREATE TABLE IF NOT EXISTS roles (
     id BIGSERIAL PRIMARY KEY,
@@ -207,7 +207,7 @@ INSERT INTO users (
 )
 VALUES (
     'admin@pricetracker.local',
-    '{noop}Admin@123',
+    '{bcrypt}$2b$12$Wc9zup6wfYIcH19hkHEkMOM/o4KKM4NhtQKaFR7swXFgd6ginPC6y',
     'System Administrator',
     NULL,
     'ACTIVE',
